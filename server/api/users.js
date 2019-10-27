@@ -5,12 +5,26 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email']
+      attributes: ['email', 'vote']
     })
     res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  const {body, sessionID} = req
+  const {email, vote} = body
+  try {
+    const user = await User.findOne({where: {email}})
+    if (user) {
+      if (user.sesssionID !== sessionID) {
+        User.update({vote}, {where: {email}})
+      }
+    } else {
+      User.create({email, vote, sessionID})
+    }
   } catch (err) {
     next(err)
   }
