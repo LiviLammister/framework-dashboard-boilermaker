@@ -37,12 +37,27 @@ export default class RepoStats extends Component {
   }
 
   async componentDidMount() {
-    const ANGULAR = await octokit.repos.get({owner: 'angular', repo: 'angular'})
-    const EMBER = await octokit.repos.get({owner: 'emberjs', repo: 'ember.js'})
-    const REACT = await octokit.repos.get({owner: 'facebook', repo: 'react'})
-    const VUE = await octokit.repos.get({owner: 'vuejs', repo: 'vue'})
+    try {
+      setInterval(async () => {
+        const ANGULAR = await octokit.repos.get({
+          owner: 'angular',
+          repo: 'angular'
+        })
+        const EMBER = await octokit.repos.get({
+          owner: 'emberjs',
+          repo: 'ember.js'
+        })
+        const REACT = await octokit.repos.get({
+          owner: 'facebook',
+          repo: 'react'
+        })
+        const VUE = await octokit.repos.get({owner: 'vuejs', repo: 'vue'})
 
-    this.setState({data: [ANGULAR.data, EMBER.data, REACT.data, VUE.data]})
+        this.setState({data: [ANGULAR.data, EMBER.data, REACT.data, VUE.data]})
+      }, 1000)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   render() {

@@ -34,9 +34,15 @@ export default class VotingResults extends Component {
   }
 
   async componentDidMount() {
-    const payload = await axios.get('/api/frameworks')
-    const {data} = payload
-    this.setState({data})
+    try {
+      setInterval(async () => {
+        const res = await axios.get('/api/frameworks')
+        const {data} = res
+        this.setState({data})
+      }, 1000)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   render() {
