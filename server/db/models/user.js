@@ -5,7 +5,8 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    primaryKey: true
   },
   vote: {
     type: Sequelize.ENUM('angular', 'ember', 'react', 'vue')

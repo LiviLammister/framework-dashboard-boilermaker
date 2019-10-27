@@ -1,13 +1,13 @@
 import React from 'react'
 
-import {Navbar} from './components'
-import Routes from './routes'
+import {RepoStats, VoteForm, VotingResults} from './components'
 
 const App = () => {
   return (
     <div>
-      <Navbar />
-      <Routes />
+      <RepoStats />
+      <VoteForm />
+      <VotingResults />
     </div>
   )
 }

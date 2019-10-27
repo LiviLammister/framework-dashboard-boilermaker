@@ -2,6 +2,11 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
+const ANGULAR = 'angular'
+const EMBER = 'ember'
+const REACT = 'react'
+const VUE = 'vue'
+
 router.get('/', async (req, res, next) => {
   try {
     const angular = await User.findAll({where: {vote: ANGULAR}})
